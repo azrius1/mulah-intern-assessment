@@ -48,31 +48,35 @@
 <script type="text/javascript">
 document.querySelector("#input").addEventListener("keypress", function(e){
     var key = e.which||e.keyCode;
-    //key 13 is Enter
     if(key === 13){
         //save input into variable "input"
         var input = document.getElementById("input").value;
-        //write input into the display
+        //write input into the display (user section)
         document.getElementById("user").innerHTML = input;
-        output(input);
+        //write output into the display (chatbot section)
+        document.getElementById("chatbot").innerHTML = "Refresh the page";
+        document.getElementById("chatbot").innerHTML = output(input);
+        //clear input
+        document.getElementById("input").value = ""; 
     }
 });
 
 function output(x){
+    let y = x.toLowerCase();
     //yelling question
-    if (x.indexOf("?") != -1 && x.value.indexOf("!") != -1) {
+    if (y.indexOf("?") != -1 && y.indexOf("!") != -1) {
         output = "Calm down, I know what I'm doing!"
     } else {
         //question
-        if (x.indexOf("?") != -1) {
+        if (y.indexOf("?") != -1) {
             output = "Sure."
         } else {
             //yell 
-            if (x.indexOf("!") != -1) {
+            if (y.indexOf("!") != -1) {
                 output = "Whoa, chill out!"
             } else {
                 //address
-                if (x.includes("Bob") === true){
+                if (y.includes("bob")){
                     output = "Fine. Be that way!"
                 } else {
                     //anything else
@@ -80,6 +84,9 @@ function output(x){
                 }
             }
         }
+    }
+    return output;    
+
     }    
 
     document.getElementById("chatbot").innerHTML = output;
